@@ -1,2 +1,2 @@
 # Project-1
-Necrophagia
+Necrophagia is a text based game made for University Coding Course Project 1
