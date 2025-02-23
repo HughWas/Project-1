@@ -1,0 +1,102 @@
+
+- List of Variables -
+
+    1. Player Tracking Variables -
+    Includes gameTimer variables, 
+    variables for how many kills the player has and how many times they have died
+    And Bool checks for various player conditions like if they dodged/blocked an attack or if they have lifesteal
+
+
+   2. Player Value Variables (stats)
+    Includes player Attack, Current and Max HP, Dodge chance, Defence, their XP modifyer (greed), their Challenge level, 
+    and their lifesteal
+    If the player levels up these stats then the value goes up
+
+    3. Player Experience Varibles -
+    Includes the players current level, their XP points, how much XP they gain on kill (challenge + greed influences),
+    their unspent skill points, and the required amount of XP for a level up
+
+    4. Enemy Stat Variables
+    Includes bool checks for if they are alive, if the lich has spawned for the first time, their current + max health, their damage,
+    hit chance, damage BEFORE player defence, their chance to hit (influenced by dodge), their level, and their type.
+
+     5. Variety of UI elements
+     This includes enemies appearance, enemy name and stats, action log, and player stats
+
+
+
+- Buttons -
+
+        If the player clicks the stats when they have skillpoints, then they gain a level in it.
+        Most stats are 3 + 1.25*
+
+
+
+- At Game Start -
+    
+    1. Sets all enemies to be black so as to hide them with the black background.
+
+    2. Gathers all the UI elements so that they appear in game
+
+    3. Intro text is presented on the action log.
+
+    
+ 
+- Timer -
+   
+   1. Adds Time.Deltatime onto the in game timer.
+   
+   2. If the timer is equal or more than 1, then it resets it and adds a second onto the gametimer variable
+
+   3. If 60 or more seconds pass, then a minute is added onto the timer and the seconds timer is reset
+
+   (Certainly a better way to do this, this feels rather jank; work with what ya got I suppose)
+
+
+
+- UI Elements -
+
+    1. Updates all the text so that the player stats are proper, and the monsters information is proper according to the variables.
+    
+
+
+- Attacking! -
+    
+    1. If the player presses space, then the code for attacking is ran.
+
+    2. If the enemy is alive then it loses health equal to your attack value; afterwards it counterattacks
+    and the player loses health equal to its attack value.
+
+    3. Checks if the player Blocks all incoming damage, dodges, or restores health using lifesteal and changes
+    variables depending on the outcomes of that. (Block = less damage, Dodge = no damage, Lifesteal = Healthgain)
+
+    4. If the enemy is on one or less health, then they die, and the player gains XP equal to their level x their level gain amount
+    
+    5. If the player dies, then the death counter ticks up, and their health is reset to be equal to their maxhealth
+
+    6. If the has more or equal XP than their threshold, then they level up and gain 5 skill points.
+
+    7. The Dreaded and Awful "Condition Check Tangle". A place that many never return from, an endless check for bools that displays
+    in the action log what happened during combat. Did the player dodge, level up, and restore health? Did they die and kill the enemy?
+    This is checked in the tangle, then displayed as text in the actionlog.
+
+    8. Afterwards all bool checks for what the player did are reset back to false.
+
+
+
+- Spawning New Enemies -
+
+    1. If the enemy is dead, then a new one is chosen by random based on challenge level.
+
+    2. Ranging from challenge level 3 to 31, in periods of 3, a new check is made for what enemy type spawns.
+    For example: If the players challenge level is 13, then there is an equal chance for enemy types between 2 and 5 to spawn.
+
+    3. Turns all the enemies black again, so that they appear invisible with the black background.
+
+    4. The enemy type chosen becomes white so as to become visible.
+
+    5. The enemies stats (Health Attack and Level) are determined randomly. 
+    Their level is determined from a random number between 1 to 5, times player challenge, then times their type number.
+    Attack and Health is between 1-10 then times their level.
+
+    6. Sets their base damage to be equal to their current damage (this is used for defence)
